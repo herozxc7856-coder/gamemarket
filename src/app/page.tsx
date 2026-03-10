@@ -43,8 +43,9 @@ const scaleIn = {
 
 // Header Component
 const Header = () => {
-  const { user, searchQuery, setSearchQuery, toggleChat, setCurrentPage, chatOpen } = useStore();
+  const { user, searchQuery, setSearchQuery, setCurrentPage, chatOpen } = useStore();
   const [searchFocused, setSearchFocused] = useState(false);
+  const [chatVisible, setChatVisible] = useState(false);
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 glass-dark border-b border-neon-cyan/20">
@@ -108,7 +109,7 @@ const Header = () => {
             className="relative p-2 rounded-lg glass hover:bg-white/10 transition-colors"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
-            onClick={toggleChat}
+            onClick={() => setChatVisible(!chatVisible)}
           >
             <MessageCircle className="w-5 h-5" />
             <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-neon-green" />
