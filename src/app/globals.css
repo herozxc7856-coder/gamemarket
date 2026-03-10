@@ -1,0 +1,504 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ========================================
+   NEXATRADE CYBERPUNK THEME
+   ======================================== */
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  
+  /* Neon Colors */
+  --color-neon-cyan: var(--neon-cyan);
+  --color-neon-magenta: var(--neon-magenta);
+  --color-neon-purple: var(--neon-purple);
+  --color-neon-green: var(--neon-green);
+  --color-neon-orange: var(--neon-orange);
+  --color-neon-red: var(--neon-red);
+  
+  /* Glassmorphism */
+  --color-glass: var(--glass);
+  --color-glass-border: var(--glass-border);
+  
+  /* Sidebar */
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  
+  /* Charts */
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  
+  /* Standard */
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  --radius: 0.625rem;
+  
+  /* Cyberpunk Background - Lighter */
+  --background: #12121f;
+  --foreground: #ffffff;
+  
+  /* Card & Surface - Lighter */
+  --card: rgba(25, 25, 40, 0.9);
+  --card-foreground: #ffffff;
+  --popover: rgba(25, 25, 40, 0.95);
+  --popover-foreground: #ffffff;
+  
+  /* Primary - Neon Cyan */
+  --primary: #00e5ff;
+  --primary-foreground: #12121f;
+  
+  /* Secondary */
+  --secondary: rgba(188, 19, 254, 0.15);
+  --secondary-foreground: #d84fff;
+  
+  /* Muted - Lighter */
+  --muted: rgba(255, 255, 255, 0.08);
+  --muted-foreground: #9999bb;
+  
+  /* Accent - Neon Magenta */
+  --accent: rgba(188, 19, 254, 0.12);
+  --accent-foreground: #d84fff;
+  
+  /* Destructive */
+  --destructive: #ff4477;
+  
+  /* Border & Input - More visible */
+  --border: rgba(0, 229, 255, 0.2);
+  --input: rgba(0, 229, 255, 0.15);
+  --ring: #00e5ff;
+  
+  /* Neon Colors - Slightly softer */
+  --neon-cyan: #00e5ff;
+  --neon-magenta: #d84fff;
+  --neon-purple: #a855f7;
+  --neon-green: #00ff88;
+  --neon-orange: #ff7733;
+  --neon-red: #ff4477;
+  
+  /* Glassmorphism - Lighter */
+  --glass: rgba(25, 25, 40, 0.7);
+  --glass-border: rgba(0, 229, 255, 0.25);
+  
+  /* Charts */
+  --chart-1: #00e5ff;
+  --chart-2: #d84fff;
+  --chart-3: #00ff88;
+  --chart-4: #a855f7;
+  --chart-5: #ff7733;
+  
+  /* Sidebar - Lighter */
+  --sidebar: rgba(18, 18, 31, 0.95);
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #00e5ff;
+  --sidebar-primary-foreground: #12121f;
+  --sidebar-accent: rgba(0, 229, 255, 0.12);
+  --sidebar-accent-foreground: #00e5ff;
+  --sidebar-border: rgba(0, 229, 255, 0.15);
+  --sidebar-ring: #00e5ff;
+}
+
+/* ========================================
+   NEON GLOW EFFECTS (No flashing)
+   ======================================== */
+
+/* Neon Text Glow - Static */
+.neon-text-cyan {
+  color: var(--neon-cyan);
+  text-shadow: 
+    0 0 8px rgba(0, 229, 255, 0.5),
+    0 0 16px rgba(0, 229, 255, 0.3);
+}
+
+.neon-text-magenta {
+  color: var(--neon-magenta);
+  text-shadow: 
+    0 0 8px rgba(216, 79, 255, 0.5),
+    0 0 16px rgba(216, 79, 255, 0.3);
+}
+
+.neon-text-gradient {
+  background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Neon Border Glow - Static */
+.neon-border-cyan {
+  border: 1px solid var(--neon-cyan);
+  box-shadow: 
+    0 0 8px rgba(0, 229, 255, 0.25),
+    inset 0 0 4px rgba(0, 229, 255, 0.1);
+}
+
+.neon-border-magenta {
+  border: 1px solid var(--neon-magenta);
+  box-shadow: 
+    0 0 8px rgba(216, 79, 255, 0.25),
+    inset 0 0 4px rgba(216, 79, 255, 0.1);
+}
+
+/* Neon Button Glow - Static */
+.neon-glow-cyan {
+  box-shadow: 
+    0 0 12px rgba(0, 229, 255, 0.35),
+    0 0 24px rgba(0, 229, 255, 0.15);
+}
+
+.neon-glow-magenta {
+  box-shadow: 
+    0 0 12px rgba(216, 79, 255, 0.35),
+    0 0 24px rgba(216, 79, 255, 0.15);
+}
+
+/* Neon Hover Effects */
+.neon-hover-cyan {
+  transition: all 0.3s ease;
+}
+
+.neon-hover-cyan:hover {
+  border-color: var(--neon-cyan);
+  box-shadow: 
+    0 0 12px rgba(0, 229, 255, 0.4),
+    0 0 24px rgba(0, 229, 255, 0.2);
+}
+
+.neon-hover-magenta:hover {
+  border-color: var(--neon-magenta);
+  box-shadow: 
+    0 0 12px rgba(216, 79, 255, 0.4),
+    0 0 24px rgba(216, 79, 255, 0.2);
+}
+
+/* ========================================
+   GLASSMORPHISM
+   ======================================== */
+
+.glass {
+  background: var(--glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+}
+
+.glass-dark {
+  background: rgba(18, 18, 31, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 229, 255, 0.15);
+}
+
+.glass-card {
+  background: linear-gradient(
+    135deg,
+    rgba(25, 25, 40, 0.95) 0%,
+    rgba(25, 25, 40, 0.7) 100%
+  );
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 229, 255, 0.2);
+}
+
+/* ========================================
+   ANIMATIONS (No flashing/blinking)
+   ======================================== */
+
+/* Gradient Flow - Smooth */
+@keyframes gradient-flow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.gradient-flow {
+  background-size: 200% 200%;
+  animation: gradient-flow 4s ease infinite;
+}
+
+/* Float Animation - Gentle */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.float {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* Grid Background - Static */
+.cyber-grid {
+  background-image: 
+    linear-gradient(rgba(0, 229, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 229, 255, 0.04) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+.cyber-grid-dense {
+  background-image: 
+    linear-gradient(rgba(0, 229, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 229, 255, 0.06) 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+
+/* ========================================
+   PARTICLE BACKGROUND
+   ======================================== */
+
+.particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: var(--neon-cyan);
+  border-radius: 50%;
+  opacity: 0.2;
+  animation: float-particle 25s infinite linear;
+}
+
+@keyframes float-particle {
+  0% {
+    transform: translateY(100vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.2;
+  }
+  90% {
+    opacity: 0.2;
+  }
+  100% {
+    transform: translateY(-100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+/* ========================================
+   CUSTOM SCROLLBAR
+   ======================================== */
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(18, 18, 31, 0.6);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--neon-cyan), var(--neon-magenta));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, var(--neon-cyan), var(--neon-purple));
+}
+
+/* ========================================
+   STATUS BADGES
+   ======================================== */
+
+.status-online {
+  position: relative;
+}
+
+.status-online::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  background: var(--neon-green);
+  border-radius: 50%;
+  border: 2px solid var(--background);
+  box-shadow: 0 0 8px var(--neon-green);
+}
+
+.status-offline::after {
+  background: #666;
+  box-shadow: none;
+}
+
+/* ========================================
+   BASE STYLES
+   ======================================== */
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* ========================================
+   CYBER BUTTON
+   ======================================== */
+
+.cyber-btn {
+  position: relative;
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta));
+  background-size: 200% 200%;
+  border: none;
+  border-radius: 8px;
+  color: #12121f;
+  font-weight: 600;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.cyber-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.25),
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+
+.cyber-btn:hover::before {
+  left: 100%;
+}
+
+.cyber-btn:hover {
+  box-shadow: 
+    0 0 16px rgba(0, 229, 255, 0.4),
+    0 0 32px rgba(216, 79, 255, 0.25);
+  transform: translateY(-2px);
+}
+
+/* ========================================
+   PRICE TAG
+   ======================================== */
+
+.price-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 12px;
+  background: rgba(0, 255, 136, 0.1);
+  border: 1px solid rgba(0, 255, 136, 0.3);
+  border-radius: 6px;
+  color: var(--neon-green);
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.price-tag-lg {
+  font-size: 1.5rem;
+  padding: 8px 20px;
+}
+
+/* ========================================
+   CARD VARIANTS
+   ======================================== */
+
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  border-color: var(--neon-cyan);
+  box-shadow: 
+    0 10px 40px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(0, 229, 255, 0.15);
+}
+
+/* ========================================
+   INPUT FOCUS
+   ======================================== */
+
+.cyber-input {
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(0, 229, 255, 0.25);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+.cyber-input:focus {
+  outline: none;
+  border-color: var(--neon-cyan);
+  box-shadow: 
+    0 0 10px rgba(0, 229, 255, 0.25);
+}
+
+.cyber-input::placeholder {
+  color: rgba(153, 153, 187, 0.6);
+}

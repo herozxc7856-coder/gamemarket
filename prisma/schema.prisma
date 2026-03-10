@@ -1,0 +1,166 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:../db/custom.db"
+}
+
+// User model
+model User {
+  id          String   @id @default(cuid())
+  name        String
+  email       String   @unique
+  avatar      String?
+  password    String?
+  balance     Float    @default(0)
+  rating      Float    @default(0)
+  totalSales  Int      @default(0)
+  verified    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  products    Product[]
+  orders      Order[]
+  reviews     Review[]
+  sentMessages    Message[]  @relation("SentMessages")
+  receivedMessages Message[] @relation("ReceivedMessages")
+  conversations   Conversation[] @relation("UserConversations")
+  transactions    Transaction[]
+}
+
+// Game model
+model Game {
+  id           String   @id @default(cuid())
+  name         String
+  icon         String
+  category     String
+  trending     Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  products     Product[]
+}
+
+// Product model
+model Product {
+  id              String   @id @default(cuid())
+  title           String
+  description     String
+  price           Float
+  originalPrice   Float?
+  server          String
+  rating          Float    @default(0)
+  reviews         Int      @default(0)
+  sales           Int      @default(0)
+  status          String   @default("offline") // online, offline
+  tags            String   // JSON array of tags
+  images          String   @default("[]") // JSON array of image URLs
+  commissionRate  Float    @default(0.10) // Commission rate (10% default)
+  commissionAmount Float   @default(0) // Actual commission amount
+  sellerRevenue   Float    @default(0) // Seller's revenue after commission
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  gameId          String
+  game            Game     @relation(fields: [gameId], references: [id])
+  sellerId        String
+  seller          User     @relation(fields: [sellerId], references: [id])
+  orders          Order[]
+  productReviews  Review[]
+}
+
+// Order model
+model Order {
+  id          String   @id @default(cuid())
+  status      String   @default("pending") // pending, in_progress, completed, refunded
+  amount      Float
+  quantity    Int      @default(1)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  productId   String
+  product     Product  @relation(fields: [productId], references: [id])
+  buyerId     String
+  buyer       User     @relation(fields: [buyerId], references: [id])
+  commission  Commission?
+}
+
+// Review model
+model Review {
+  id          String   @id @default(cuid())
+  rating      Int
+  content     String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  productId   String
+  product     Product  @relation(fields: [productId], references: [id])
+  authorId    String
+  author      User     @relation(fields: [authorId], references: [id])
+}
+
+// Conversation model
+model Conversation {
+  id          String   @id @default(cuid())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  participants User[]  @relation("UserConversations")
+  messages     Message[]
+}
+
+// Message model
+model Message {
+  id             String   @id @default(cuid())
+  content        String
+  read           Boolean  @default(false)
+  createdAt      DateTime @default(now())
+
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id])
+  senderId       String
+  sender         User     @relation("SentMessages", fields: [senderId], references: [id])
+  receiverId     String?
+  receiver       User?    @relation("ReceivedMessages", fields: [receiverId], references: [id])
+}
+
+// Transaction model for balance
+model Transaction {
+  id          String   @id @default(cuid())
+  type        String   // deposit, withdrawal, purchase, sale, refund, commission
+  amount      Float
+  status      String   @default("pending") // pending, completed, failed
+  description String?
+  metadata    String?  // JSON metadata (commission details, etc.)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+}
+
+// Commission model
+model Commission {
+  id              String   @id @default(cuid())
+  rate            Float    // Commission rate (e.g., 0.10 for 10%)
+  amount          Float    // Commission amount
+  orderId         String   @unique
+  order           Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  status          String   @default("pending") // pending, completed, refunded
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+// Platform settings model
+model PlatformSettings {
+  id                String   @id @default("platform_settings")
+  defaultCommissionRate Float  @default(0.10) // 10% default
+  minWithdrawal     Float    @default(100)
+  maxWithdrawal     Float    @default(50000)
+  updatedAt         DateTime @updatedAt
+}
